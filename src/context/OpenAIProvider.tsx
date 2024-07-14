@@ -74,7 +74,6 @@ const OpenAIContext = React.createContext<{
 }>(defaultContext);
 
 export default function OpenAIProvider({ children }: PropsWithChildren) {
-  const { token } = useAuth();
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
@@ -244,6 +243,12 @@ export default function OpenAIProvider({ children }: PropsWithChildren) {
 
       try {
         const decoder = new TextDecoder();
+        const token = process.env.NEXT_PUBLIC_GPT_API_KEY;
+
+        if (!token) {
+          throw new Error("API token is not defined in environment variables");
+        }
+
         const { body, ok } = await fetch("/api/completion", {
           method: "POST",
           headers: {
@@ -312,7 +317,7 @@ export default function OpenAIProvider({ children }: PropsWithChildren) {
 
       setLoading(false);
     },
-    [config, messages, systemMessage, loading, token]
+    [config, messages, systemMessage, loading]
   );
 
   const addMessage = useCallback(

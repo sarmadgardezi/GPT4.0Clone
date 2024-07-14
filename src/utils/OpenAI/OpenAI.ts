@@ -1,29 +1,28 @@
 import { OpenAIChatMessage, OpenAIConfig } from "./OpenAI.types";
-import {
-  createParser,
-  ParsedEvent,
-  ReconnectInterval,
-} from "eventsource-parser";
+import { createParser, ParsedEvent, ReconnectInterval } from "eventsource-parser";
 
 export const defaultConfig = {
-  model: "gpt-3.5-turbo",
+  model: "gpt-4",
   temperature: 0.5,
   max_tokens: 2048,
   top_p: 1,
   frequency_penalty: 0,
   presence_penalty: 0.6,
-};
+}; 
 
 export type OpenAIRequest = {
   messages: OpenAIChatMessage[];
 } & OpenAIConfig;
 
-export const getOpenAICompletion = async (
-  token: string,
-  payload: OpenAIRequest
-) => {
+export const getOpenAICompletion = async (inputToken: string, payload: OpenAIRequest) => {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
+  
+  const token = inputToken || process.env.NEXT_PUBLIC_GPT_API_KEY;
+
+  if (!token) {
+    throw new Error("API token is not defined in environment variables");
+  }
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
