@@ -71,7 +71,7 @@ export default function ChatInput({ messageLimitReached, messageLimitPercentage 
           />
         </div>
         {messageLimitReached && (
-          <div className="mb-2 text-center text-red-600">
+          <div className=" mb-2 text-center text-red-600">
             You have reached the free message limit. Please purchase a plan to continue.
           </div>
         )}

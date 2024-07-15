@@ -92,6 +92,7 @@ export default function ChatMessages({}: Props) {
             {messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
             ))}
+            
             <hr className="border-b border-stone-400/20" />
           </>
         )}
