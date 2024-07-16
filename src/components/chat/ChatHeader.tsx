@@ -1,7 +1,7 @@
 import React from "react";
-import { MdClose, MdMenu } from "react-icons/md";
-import ChatSidebar from "@/components/chat/sidebar/ChatSidebar";
+import { MdMenu } from "react-icons/md";
 import { Transition } from "@headlessui/react";
+import ChatSidebar from "./sidebar/ChatSidebar";
 
 type Props = {
   setIsSidebarOpen: (isOpen: boolean) => void;
@@ -27,7 +27,6 @@ export default function ChatHeader({ setIsSidebarOpen }: Props) {
           <MdMenu />
         </button>
       </div>
-      {/* Animate slide in from left */}
       <Transition
         show={isOpen}
         className="absolute z-30 h-[calc(100%-50px)] w-full"
@@ -41,12 +40,6 @@ export default function ChatHeader({ setIsSidebarOpen }: Props) {
         <div className="shadow-4xl h-full w-2/3">
           <ChatSidebar setIsOpen={setIsSidebarOpen} />
         </div>
-        <button
-          className="absolute right-0 top-0 p-4 text-primary"
-          onClick={handleCloseClick}
-        >
-          <MdClose />
-        </button>
       </Transition>
     </>
   );

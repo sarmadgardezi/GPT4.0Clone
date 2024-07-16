@@ -13,6 +13,23 @@ export default function Gpt() {
     clearConversation();
   }, []);
 
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (e.target instanceof Node && !document.querySelector('.sidebar')?.contains(e.target)) {
+      setIsSidebarOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isSidebarOpen]);
+
   return (
     <React.Fragment>
       <Head>
