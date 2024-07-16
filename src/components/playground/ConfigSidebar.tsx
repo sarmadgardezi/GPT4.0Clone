@@ -1,5 +1,5 @@
-import { useOpenAI } from "@/context/OpenAIProvider";
 import React from "react";
+import { useOpenAI } from "@/context/OpenAIProvider";
 import Dropdown from "../input/Dropdown";
 import Slider from "../input/Slider";
 import { OpenAIChatModels, OpenAIConfig } from "@/utils/OpenAI";
@@ -22,7 +22,7 @@ export default function ConfigSidebar({}: Props) {
 
   return (
     <div className="w-full flex-col items-stretch gap-y-4 p-4 md:flex sm:flex">
-      <Dropdown
+      <Dropdown 
         label="Model"
         options={
           loadingModels
@@ -31,6 +31,7 @@ export default function ConfigSidebar({}: Props) {
         }
         value={config.model}
         onSelect={(option) => handleUpdateConfig("model", option)}
+        className="label-white"  // Apply the custom CSS class
       />
       <Slider
         label="Temperature"

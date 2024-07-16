@@ -62,3 +62,12 @@ p {
 }
 
 
+/* styles.css */
+.label-white {
+  @apply text-white;
+}
+
+/* styles.css */
+.dropdown-container .dropdown-label {
+  @apply text-white;
+}
