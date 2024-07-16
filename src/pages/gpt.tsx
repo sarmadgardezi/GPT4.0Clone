@@ -1,21 +1,21 @@
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatSidebar from "@/components/chat/sidebar/ChatSidebar";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useOpenAI } from "@/context/OpenAIProvider";
 import ChatHeader from "@/components/chat/ChatHeader";
 
 export default function Gpt() {
   const { clearConversation } = useOpenAI();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
+  const sidebarRef = useRef(null);
 
   useEffect(() => {
     clearConversation();
   }, []);
 
   const handleOutsideClick = (e: MouseEvent) => {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar && !sidebar.contains(e.target as Node)) {
+    if (sidebarRef.current && (sidebarRef.current as HTMLElement).contains(e.target as Node)) {
       setIsSidebarOpen(false);
     }
   };
@@ -45,7 +45,9 @@ export default function Gpt() {
       <div className="max-w-screen relative h-screen max-h-screen w-screen overflow-hidden">
         <ChatHeader setIsSidebarOpen={setIsSidebarOpen} />
         <ChatMessages />
-        <ChatSidebar setIsOpen={setIsSidebarOpen} isOpen={isSidebarOpen} />
+        <div ref={sidebarRef}>
+          <ChatSidebar setIsOpen={setIsSidebarOpen} isOpen={isSidebarOpen} />
+        </div>
       </div>
     </React.Fragment>
   );
