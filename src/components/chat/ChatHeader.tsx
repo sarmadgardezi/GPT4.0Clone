@@ -3,15 +3,27 @@ import { MdClose, MdMenu } from "react-icons/md";
 import ChatSidebar from "@/components/chat/sidebar/ChatSidebar";
 import { Transition } from "@headlessui/react";
 
-type Props = {};
+type Props = {
+  setIsSidebarOpen: (isOpen: boolean) => void;
+};
 
-export default function ChatHeader({}: Props) {
+export default function ChatHeader({ setIsSidebarOpen }: Props) {
   const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleMenuClick = () => {
+    setIsOpen(true);
+    setIsSidebarOpen(true);
+  };
+
+  const handleCloseClick = () => {
+    setIsOpen(false);
+    setIsSidebarOpen(false);
+  };
 
   return (
     <>
       <div className="dark top-0 flex h-[50px] justify-between bg-primary px-4 text-2xl text-primary md:hidden">
-        <button className="p-2" onClick={() => setIsOpen(true)}>
+        <button className="p-2" onClick={handleMenuClick}>
           <MdMenu />
         </button>
       </div>
@@ -27,11 +39,11 @@ export default function ChatHeader({}: Props) {
         leaveTo="transform -translate-x-full"
       >
         <div className="shadow-4xl h-full w-2/3">
-          <ChatSidebar setIsOpen={setIsOpen} />
+          <ChatSidebar setIsOpen={setIsSidebarOpen} />
         </div>
         <button
           className="absolute right-0 top-0 p-4 text-primary"
-          onClick={() => setIsOpen(false)}
+          onClick={handleCloseClick}
         >
           <MdClose />
         </button>
