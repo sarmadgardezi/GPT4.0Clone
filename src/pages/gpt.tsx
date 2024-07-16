@@ -1,12 +1,13 @@
 import ChatMessages from "@/components/chat/ChatMessages";
 import ChatSidebar from "@/components/chat/sidebar/ChatSidebar";
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useOpenAI } from "@/context/OpenAIProvider";
 import ChatHeader from "@/components/chat/ChatHeader";
 
 export default function Gpt() {
   const { clearConversation } = useOpenAI();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
 
   useEffect(() => {
     clearConversation();
@@ -21,9 +22,9 @@ export default function Gpt() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="max-w-screen relative h-screen max-h-screen w-screen overflow-hidden">
-        <ChatHeader />
+        <ChatHeader setIsSidebarOpen={setIsSidebarOpen} />
         <ChatMessages />
-        <ChatSidebar />
+        {isSidebarOpen && <ChatSidebar setIsOpen={setIsSidebarOpen} />}
       </div>
     </React.Fragment>
   );
