@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { MdAdd, MdDeleteOutline, MdBuild } from "react-icons/md";
 import { useOpenAI } from "@/context/OpenAIProvider";
 import Image from "next/image";
@@ -7,14 +8,22 @@ import ButtonContainer from "./buttons/ButtonContainer";
 import Conversations from "./conversation/Conversations";
 import ConfigSidebar from "@/components/playground/ConfigSidebar";
 
-type Props = {};
+type Props = {
+  setIsOpen: (isOpen: boolean) => void;
+};
 
-export default function ChatSidebar({}: Props) {
+export default function ChatSidebar({ setIsOpen }: Props) {
   const { clearConversations } = useOpenAI();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleNewChat = () => {
+    setIsOpen(false);
+    router.push("/gpt");
   };
 
   return (
@@ -23,10 +32,10 @@ export default function ChatSidebar({}: Props) {
         <Image className="mx-auto" src="/img/aichatgpt.png" alt="Hero" width={100} height={100} />
         <Link href="/" className="text-center flex items-center gap-3 rounded border border-white/20 p-4 transition-colors hover:bg-gray-500/10">BACK HOME</Link>
         <br />
-        <Link href="/gpt" className="flex items-center gap-3 rounded border border-white/20 p-4 transition-colors hover:bg-gray-500/10">
+        <button onClick={handleNewChat} className="flex items-center gap-3 rounded border border-white/20 p-4 transition-colors hover:bg-gray-500/10">
           <MdAdd />
           New chat
-        </Link>
+        </button>
 
         <Conversations />
 
