@@ -21,7 +21,7 @@ export default function ConfigSidebar({}: Props) {
   };
 
   return (
-    <div className=" min-w-[240px] flex-col items-stretch gap-y-4 p-4 md:flex sm:flex">
+    <div className="w-full flex-col items-stretch gap-y-4 p-4 md:flex sm:flex">
       <Dropdown
         label="Model"
         options={
@@ -33,7 +33,7 @@ export default function ConfigSidebar({}: Props) {
         onSelect={(option) => handleUpdateConfig("model", option)}
       />
       <Slider
-        label="temperature"
+        label="Temperature"
         range={[0, 1]}
         step={0.01}
         value={config.temperature as number}
@@ -42,7 +42,7 @@ export default function ConfigSidebar({}: Props) {
         }
       />
       <Slider
-        label="maximum length"
+        label="Maximum Length"
         range={[0, OpenAIChatModels[config.model].maxLimit || 8192]}
         step={1}
         value={config.max_tokens as number}
@@ -51,7 +51,7 @@ export default function ConfigSidebar({}: Props) {
         }
       />
       <Slider
-        label="top p"
+        label="Top P"
         range={[0, 1]}
         step={0.01}
         value={config.top_p as number}
@@ -60,7 +60,7 @@ export default function ConfigSidebar({}: Props) {
         }
       />
       <Slider
-        label="frequency penalty"
+        label="Frequency Penalty"
         range={[0, 1]}
         step={0.01}
         value={config.frequency_penalty as number}
@@ -69,7 +69,7 @@ export default function ConfigSidebar({}: Props) {
         }
       />
       <Slider
-        label="presence penalty"
+        label="Presence Penalty"
         range={[0, 1]}
         step={0.01}
         value={config.presence_penalty as number}
