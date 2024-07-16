@@ -14,17 +14,21 @@ export default function Gpt() {
   }, []);
 
   const handleOutsideClick = (e: MouseEvent) => {
-    if (e.target instanceof Node && !document.querySelector('.sidebar')?.contains(e.target)) {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar && !sidebar.contains(e.target as Node)) {
       setIsSidebarOpen(false);
     }
   };
 
   useEffect(() => {
-    if (isSidebarOpen) {
+    const mediaQuery = window.matchMedia('(max-width: 768px)'); // Mobile devices
+
+    if (isSidebarOpen && mediaQuery.matches) {
       document.addEventListener('mousedown', handleOutsideClick);
     } else {
       document.removeEventListener('mousedown', handleOutsideClick);
     }
+
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
@@ -41,7 +45,7 @@ export default function Gpt() {
       <div className="max-w-screen relative h-screen max-h-screen w-screen overflow-hidden">
         <ChatHeader setIsSidebarOpen={setIsSidebarOpen} />
         <ChatMessages />
-        {isSidebarOpen && <ChatSidebar setIsOpen={setIsSidebarOpen} />}
+        <ChatSidebar setIsOpen={setIsSidebarOpen} isOpen={isSidebarOpen} />
       </div>
     </React.Fragment>
   );

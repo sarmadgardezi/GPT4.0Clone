@@ -39,7 +39,7 @@ export default function Chat() {
       <div className="max-w-screen relative h-screen max-h-screen w-screen overflow-hidden">
         <ChatHeader setIsSidebarOpen={setIsSidebarOpen} />
         <ChatMessages />
-        {isSidebarOpen && <ChatSidebar setIsOpen={setIsSidebarOpen} />}
+        {isSidebarOpen && <ChatSidebar setIsOpen={setIsSidebarOpen} isOpen={false} />}
       </div>
     </React.Fragment>
   );

@@ -10,9 +10,10 @@ import ConfigSidebar from "@/components/playground/ConfigSidebar";
 
 type Props = {
   setIsOpen: (isOpen: boolean) => void;
+  isOpen: boolean;
 };
 
-export default function ChatSidebar({ setIsOpen }: Props) {
+export default function ChatSidebar({ setIsOpen, isOpen }: Props) {
   const { clearConversations } = useOpenAI();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function ChatSidebar({ setIsOpen }: Props) {
   };
 
   return (
-    <div className="sidebar dark left-0 top-0 h-full max-h-screen flex-col bg-custom-gradient text-primary md:fixed md:flex md:w-[260px]">
+    <div className={`sidebar dark left-0 top-0 h-full max-h-screen flex-col bg-custom-gradient text-primary md:fixed md:flex md:w-[260px] ${isOpen ? '' : 'hidden md:flex'}`}>
       <div className="flex h-full flex-col items-stretch p-2">
         <Image className="mx-auto" src="/img/aichatgpt.png" alt="Hero" width={100} height={100} />
         <Link href="/" className="text-center flex items-center gap-3 rounded border border-white/20 p-4 transition-colors hover:bg-gray-500/10">BACK HOME</Link>
