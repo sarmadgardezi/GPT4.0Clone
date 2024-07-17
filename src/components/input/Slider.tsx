@@ -1,5 +1,6 @@
 import React from "react";
 import { OpenAIConfig } from "@/utils/OpenAI";
+// @ts-ignore
 import ReactSlider from "react-slider";
 
 type Props = {
@@ -12,13 +13,11 @@ type Props = {
 
 export default function Slider({ label, range, step, value, onChange }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Clamp value to range
     const value = Math.min(
       Math.max(Number(e.target.value), range[0]),
       range[1]
     );
 
-    // If step < 1 then round
     const roundedValue = step < 1 ? Math.round(value) : value;
 
     if (isNaN(roundedValue)) return;
@@ -40,6 +39,7 @@ export default function Slider({ label, range, step, value, onChange }: Props) {
         />
       </div>
 
+      {/* @ts-ignore */}
       <ReactSlider
         className="mt-2 flex-1"
         thumbClassName="bg-white border-2 border-gray-300 text-white h-4 w-4 -translate-y-[calc((1rem-.25rem)/2)] rounded-full"
