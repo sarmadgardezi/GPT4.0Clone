@@ -2,9 +2,8 @@ import React from 'react';
 
 const navigationItems = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Packages', href: '/Packages' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Chat AI', href: '/gpt' },
 ];
 
 const Menu: React.FC = () => {

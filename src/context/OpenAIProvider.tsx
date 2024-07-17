@@ -18,7 +18,7 @@ import React, { PropsWithChildren, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "@/context/AuthProvider";
 
-const CHAT_ROUTE = "/";
+const CHAT_ROUTE = "/gpt";
 
 const defaultContext = {
   systemMessage: {
