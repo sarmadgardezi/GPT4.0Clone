@@ -37,7 +37,7 @@ const Points: React.FC = () => {
               <div className="absolute inset-0 -m-6 -rotate-2 rounded-xl  bg-gray-800" />
               <div className="absolute inset-0 -m-6 rotate-1 rounded-xl  shadow-inner " />
               <img
-                src="/img/aipoints.png"
+                src="/img/3.png"
                 className="relative mx-auto rounded-lg shadow-lg"
                 alt="Hero Image"
               />
