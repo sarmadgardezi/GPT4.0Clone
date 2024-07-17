@@ -2,7 +2,7 @@ import ChatMessages from "@/components/chat/ChatMessages";
 import ChatSidebar from "@/components/chat/sidebar/ChatSidebar";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 import { getConversation } from "./../../utils/History";
 import { useOpenAI } from "@/context/OpenAIProvider";
 import ChatHeader from "./../../components/chat/ChatHeader";
@@ -10,7 +10,6 @@ import ChatHeader from "./../../components/chat/ChatHeader";
 export default function Chat() {
   const { loadConversation, conversationId } = useOpenAI();
   const { id } = useRouter().query;
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State for sidebar visibility
 
   React.useEffect(() => {
     if (!id) return;
@@ -37,9 +36,9 @@ export default function Chat() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="max-w-screen relative h-screen max-h-screen w-screen overflow-hidden">
-        <ChatHeader setIsSidebarOpen={setIsSidebarOpen} />
+        <ChatHeader />
         <ChatMessages />
-        {isSidebarOpen && <ChatSidebar setIsOpen={setIsSidebarOpen} isOpen={false} />}
+        <ChatSidebar />
       </div>
     </React.Fragment>
   );

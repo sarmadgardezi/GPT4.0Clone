@@ -29,9 +29,8 @@
 
 
 
-
 .dark body {
-  @apply bg-custom-gradient text-white;
+  @apply bg-dk  text-white;
 }
 
 

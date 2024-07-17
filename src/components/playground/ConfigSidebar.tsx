@@ -31,7 +31,7 @@ export default function ConfigSidebar({}: Props) {
         }
         value={config.model}
         onSelect={(option) => handleUpdateConfig("model", option)}
-        className="label-white"  // Apply the custom CSS class
+        className="text-black"  // Apply the custom CSS class
       />
       <Slider
         label="Temperature"

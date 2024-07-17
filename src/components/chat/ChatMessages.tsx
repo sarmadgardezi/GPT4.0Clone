@@ -1,20 +1,18 @@
 import { useOpenAI } from "@/context/OpenAIProvider";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import ChatPlaceholder from "./ChatPlaceholder";
 
 type Props = {};
 
-const MESSAGE_LIMIT = 25;
-
 export default function ChatMessages({}: Props) {
   const { messages, submit } = useOpenAI();
   const messageContainer = React.useRef<HTMLDivElement>(null);
   const [scrolling, setScrolling] = React.useState(false);
   const [prevMessageLength, setPrevMessageLength] = React.useState(0);
-  const [messageLimitReached, setMessageLimitReached] = useState(false);
 
+  // Scroll handling for auto scroll
   useEffect(() => {
     const handleScroll = () => {
       if (messageContainer.current) {
@@ -42,13 +40,13 @@ export default function ChatMessages({}: Props) {
   }, []);
 
   useEffect(() => {
-    if (messages.length !== prevMessageLength) {
+    if (messages.length != prevMessageLength) {
       setPrevMessageLength(messages.length);
     }
 
     if (
       messageContainer.current &&
-      (!scrolling || messages.length !== prevMessageLength)
+      (!scrolling || messages.length != prevMessageLength)
     ) {
       messageContainer.current.scrollTop =
         messageContainer.current.scrollHeight;
@@ -70,15 +68,6 @@ export default function ChatMessages({}: Props) {
     };
   }, [submit]);
 
-  useEffect(() => {
-    setMessageLimitReached(messages.length > MESSAGE_LIMIT);
-  }, [messages]);
-
-  const messageLimitPercentage = Math.max(
-    0,
-    ((MESSAGE_LIMIT - messages.length) / MESSAGE_LIMIT) * 100
-  );
-
   return (
     <div className="flex h-full w-full flex-col items-stretch md:pl-[260px]">
       <div
@@ -92,15 +81,11 @@ export default function ChatMessages({}: Props) {
             {messages.map((message) => (
               <ChatMessage key={message.id} message={message} />
             ))}
-            
             <hr className="border-b border-stone-400/20" />
           </>
         )}
       </div>
-      <ChatInput 
-        messageLimitReached={messageLimitReached}
-        messageLimitPercentage={messageLimitPercentage}
-      />
+      <ChatInput />
     </div>
   );
 }
