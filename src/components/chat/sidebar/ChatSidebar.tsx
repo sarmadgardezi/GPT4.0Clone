@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { MdAdd, MdDeleteOutline, MdBuild } from "react-icons/md";
+import { MdAdd, MdDeleteOutline, MdBuild, MdHome } from "react-icons/md";
 import { useOpenAI } from "@/context/OpenAIProvider";
 import Github from "../../misc/Github";
 import ThemeButton from "./buttons/ThemeButton";
@@ -24,10 +24,21 @@ export default function ChatSidebar({}: Props) {
   const handleNewChat = () => {
     router.push('/gpt/').then(() => router.reload());
   };
+  const homee = () => {
+    router.push('/');
+  };
 
   return (
     <div className="dark left-0 top-0 h-full max-h-screen flex-col bg-gray-900 text-primary md:fixed md:flex md:w-[260px]">
       <div className="flex h-full flex-col items-stretch p-2">
+        <span className="pb-5 pt-5 w-full">
+      <ButtonContainer onClick={homee} >
+         
+            <MdHome />
+           
+            HOME
+          </ButtonContainer>
+          </span>
         <button
           onClick={handleNewChat}
           className="flex items-center gap-3 rounded border border-white/20 p-4 transition-colors bg-gradient-to-r from-purple-500 to-indigo-500"
