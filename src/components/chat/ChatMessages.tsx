@@ -1,5 +1,5 @@
 import { useOpenAI } from "@/context/OpenAIProvider";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import ChatPlaceholder from "./ChatPlaceholder";
@@ -8,9 +8,13 @@ type Props = {};
 
 export default function ChatMessages({}: Props) {
   const { messages, submit } = useOpenAI();
-  const messageContainer = React.useRef<HTMLDivElement>(null);
-  const [scrolling, setScrolling] = React.useState(false);
-  const [prevMessageLength, setPrevMessageLength] = React.useState(0);
+  const messageContainer = useRef<HTMLDivElement>(null);
+  const [scrolling, setScrolling] = useState(false);
+  const [prevMessageLength, setPrevMessageLength] = useState(0);
+  const [remainingMessages, setRemainingMessages] = useState(1000);
+
+  const messageLimitReached = remainingMessages <= 0;
+  const messageLimitPercentage = ((1000 - remainingMessages) / 1000) * 100;
 
   // Scroll handling for auto scroll
   useEffect(() => {
@@ -40,13 +44,13 @@ export default function ChatMessages({}: Props) {
   }, []);
 
   useEffect(() => {
-    if (messages.length != prevMessageLength) {
+    if (messages.length !== prevMessageLength) {
       setPrevMessageLength(messages.length);
     }
 
     if (
       messageContainer.current &&
-      (!scrolling || messages.length != prevMessageLength)
+      (!scrolling || messages.length !== prevMessageLength)
     ) {
       messageContainer.current.scrollTop =
         messageContainer.current.scrollHeight;
@@ -85,7 +89,10 @@ export default function ChatMessages({}: Props) {
           </>
         )}
       </div>
-      <ChatInput />
+      <ChatInput
+        messageLimitReached={messageLimitReached}
+        messageLimitPercentage={messageLimitPercentage}
+      />
     </div>
   );
 }
