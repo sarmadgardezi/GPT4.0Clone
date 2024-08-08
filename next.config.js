@@ -1,3 +1,4 @@
+// next.config.js
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
 });
@@ -6,6 +7,10 @@ const withMDX = require('@next/mdx')({
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-}
+  output: "export",
+  images: {
+    unoptimized: true, // Add this to avoid the Image Optimization error
+  },
+};
 
 module.exports = withMDX(nextConfig);
